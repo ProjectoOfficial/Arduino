@@ -1,3 +1,7 @@
+#Credits: Daniel Rossi 27/04/2019
+#YouTube Channel: https://www.youtube.com/c/ProjectoOfficial
+#Instagram: @officialprojecto
+
 #define r8 0
 #define r7 1
 #define r6 2
