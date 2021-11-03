@@ -1,20 +1,109 @@
-#define MQ7 A1
+#define buzzer  10
+const int songspeed = 1;
+#define Do4 262
+#define Re4 294
+#define Mi4 330
+#define Fa4 349
+#define Sol4 392
+#define La4 440
+#define Si4 494
+#define Do5 523
+#define Re5 587
+#define Mi5 659
+#define Fa5 698
+#define Sol5 784
+#define La5 880
+#define Si5 988
 
-float data = 0;
-int ppm = 0;
-int maxx = 0;
+int notes[] = {
+  Re4, Mi4, Sol4, Sol4, //4
+  Si4, La4, 0, Sol4, Si4, //9
+  La4, Si4, Si4, Si4, Sol4, Sol4, //15
+  Sol4, La4, Si4, La4,//19
+  Si4, La4, 0, Sol4, Si4,//24
+  Re5, Si4, La4, 0, Sol4, Sol4, Sol4,//31
+  Sol4, Sol4, La4, Si4, Do5,//36
+  Do5, Si4,//38
+  La4, La4, Sol4,//41
+  Sol4, La4, Si4, La4,//45
+  Si4,//46
+  Re5, Re5, Re5, Mi5, Si4, La4,//52
+  0, Si4, 0, Si4, 0, Si4,//58
+  Si4, La4, Sol4,//61
+  0, Si4, 0, Si4, 0, Si4,//67
+  Sol4, La4, Si4,//70
+  Do5, Si4, Sol4, Re4, Si4,//75
+  Si4, Do5, Si4, La4,//79
+  Si4, La4, 0, Sol4,//83
+  0, Si4, 0, Si4, 0, Si4,//89
+  Si4, La4, 0, Sol4,//93
+  0, Si4, 0, Si4, 0, Si4,//99
+  Sol4, La4, Si4,//102
+  0, Do5, 0, Si4, 0, Sol4, 0, Re4,//110
+  La4, Si4, Re5, Si4, La4, Sol4, //116
+  Sol5, Mi5, Re5, Mi5, Si4, //121
+  Re4, Re5, Do5, Si4, La4, 0, Sol4, //128
+  Sol5, Mi5, Re5, Sol4,//132
+  Si4, La4, 0, Sol4,//136
+  Re4, Re5, Re5, Re5, Re5, Re5, Mi5,//143
+  Si4, La4, 0, Sol4, Si4, Re5, Sol5,//150
+  Fa5, Mi5, Fa5,//153
+  Si4, Sol4, La4, Si4, Re5, Do5, Si4, Do5,//161
+  Si4, La4, Do5, Si4, Sol4, La4, //167
+  Si4, La4, La4, 0, Sol4, Sol4,0 //174
+
+
+};
+//*****************************************
+int duration[] = { //duration of each note (in ms) Quarter Note is set to 250 ms
+  333, 333, 333, 2800,//4
+  333, 333, 10, 333, 2800,//9
+  333, 333, 333, 333, 333, 2100,//15
+  333, 333, 333, 2600,//19
+  333, 333, 10, 333, 2800,//24
+  700 , 333, 333, 10, 333, 333, 1800,//31
+  333, 333, 333, 333, 700,//36
+  333, 700,//38
+  333, 333, 700,//41
+  333, 333, 333, 2000,//45
+  1000,//46
+  333, 333, 333, 333, 333, 333,//52
+  10, 1000, 10, 1000, 10, 1000,//58
+  333, 333, 333,//61
+  10, 1000, 10, 1000, 10, 1000,//67
+  333, 333, 333,//70
+  1000, 1000, 1000, 1000, 1700,//75
+  330, 330, 330, 1000,//79
+  330, 330, 10, 330,//83
+  10, 1000, 10, 1000, 10, 1000,//89
+  330, 330, 10, 330,//93
+  10, 1000, 10, 1000, 10, 1000,//99
+  333, 333, 333,//102
+  10, 1000, 10, 1000, 10, 1000, 10, 1000,//110
+  1000 , 1000, 1000, 330, 330, 2200,//116
+  660, 330, 660,  330, 1600, //121
+  330, 660, 330, 660, 330, 10, 2200, //128
+  660, 330, 660, 330,//132
+  330, 200, 10, 660, //136
+  330, 330, 330, 330, 330, 330, 330,//143
+  330, 330, 10, 660, 330, 330, 660, //150
+  330, 660, 330,//153
+  1000, 330, 330, 330, 660, 330, 660, 330,//161
+  1000, 1000, 1000, 660, 200, 200,//167
+  1000, 1000, 1000, 10, 660, 1000,////173
+
+};
+
 void setup() {
-  Serial.begin(9600);
-  pinMode(MQ7, INPUT);
+  pinMode(buzzer, OUTPUT);
+  for (int i = 0; i < 179; i++) {
+    int wait = duration[i] * songspeed;
+    tone(buzzer, notes[i], wait); //tone(pin,frequency,duration)
+    delay(wait);
+  }
+
 }
 
 void loop() {
-  data = analogRead(MQ7);
-  ppm = map(data, 0, 1023, 300, 2000);
-  if (ppm > maxx)maxx = ppm;
-  Serial.print(ppm);
-  Serial.print("ppm     valore massimo:");
-  Serial.print(maxx);
-  Serial.println("ppm");
 
 }
